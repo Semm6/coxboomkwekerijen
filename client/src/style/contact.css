@@ -1,0 +1,16 @@
+html {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.info {
+  width: 50%;
+  margin: auto;
+  text-align: left;
+}
+
+.line {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 20px;
+}
