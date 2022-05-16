@@ -1,10 +1,22 @@
 // server/index.js
 const express = require("express");
 const mysql = require("mysql");
-
+const cors = require("cors");
+const app = express();
 const PORT = process.env.PORT || 3001;
 
-const app = express();
+const whitelist = ["http://localhost:3000"];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 const db = mysql.createPool({
   host: "localhost",
@@ -24,3 +36,4 @@ app.get("/api/get", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+2;

@@ -1,36 +1,29 @@
 import React from "react";
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import "../style/tree.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import ProductCard from "../components/productcard";
+import useFetch from "../ApiService/useFetch";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+const Shop = () => {
+  const {
+    data: products,
+    error,
+    isPending,
+  } = useFetch("http://localhost:3001/api/get");
 
-function Tree() {
   return (
     <div>
-      <h1>Trees</h1>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          {Array.from(Array(6)).map((_, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index}>
-              <Item>xs=2</Item>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <Container>
+        <Row>
+          <h1>Trees</h1>
+          {error && <div>{error}</div>}
+          {isPending && <div>Loading...</div>}
+          {products && <ProductCard products={products} />}
+        </Row>
+      </Container>
     </div>
   );
-}
+};
 
-export default Tree;
+export default Shop;
